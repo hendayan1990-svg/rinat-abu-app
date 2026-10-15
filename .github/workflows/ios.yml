@@ -1,0 +1,32 @@
+name: iPhone build
+on:
+  push:
+    paths: ['ios/**', '.github/workflows/ios.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  simulator:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd ios
+          xcodegen generate
+      - name: Compile iPhone simulator app
+        run: |
+          cd ios
+          set -o pipefail
+          xcodebuild -project RinatAbu.xcodeproj -scheme RinatAbu -sdk iphonesimulator -configuration Debug -derivedDataPath build CODE_SIGNING_ALLOWED=NO build | tee build.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-build-log
+          path: ios/build.log
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RinatAbu-iOS-SIMULATOR-not-for-phone
+          path: ios/build/Build/Products/Debug-iphonesimulator/RinatAbu.app
