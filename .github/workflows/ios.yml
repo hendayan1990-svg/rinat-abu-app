@@ -21,6 +21,26 @@ jobs:
           cd ios
           set -o pipefail
           xcodebuild -project RinatAbu.xcodeproj -scheme RinatAbu -sdk iphonesimulator -configuration Debug -derivedDataPath build CODE_SIGNING_ALLOWED=NO build | tee build.log
+      - name: Launch on iPhone simulator
+        run: |
+          python3 - <<'PY'
+          import json, subprocess, pathlib, time
+          devices=json.loads(subprocess.check_output(['xcrun','simctl','list','devices','available','--json']))['devices']
+          phones=[d for ds in devices.values() for d in ds if 'iPhone' in d['name'] and d.get('isAvailable')]
+          assert phones, 'No iPhone simulator installed'
+          device=phones[0]['udid']
+          subprocess.run(['xcrun','simctl','boot',device],check=False)
+          subprocess.run(['xcrun','simctl','bootstatus',device,'-b'],check=True)
+          subprocess.run(['xcrun','simctl','install',device,'ios/build/Build/Products/Debug-iphonesimulator/RinatAbu.app'],check=True)
+          subprocess.run(['xcrun','simctl','launch',device,'com.rinatabu.app'],check=True)
+          time.sleep(12)
+          subprocess.run(['xcrun','simctl','io',device,'screenshot','ios/iphone-preview.png'],check=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iphone-screenshot
+          path: ios/iphone-preview.png
       - uses: actions/upload-artifact@v4
         if: always()
         with:
