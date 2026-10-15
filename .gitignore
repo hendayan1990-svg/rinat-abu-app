@@ -10,3 +10,11 @@ release_remote.py
 release-result.json
 admin-check.png
 __pycache__/
+
+assets/catalog/
+check_images.py
+curl_check.py
+download_images.py
+publish_design.py
+publish_fix.py
+design_assets.py

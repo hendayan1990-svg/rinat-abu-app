@@ -62,7 +62,7 @@ enum CatalogError: Error { case invalid }
                     let old = Double(prices["regular_price"] as? String ?? "") ?? amount
                     guard old.isFinite, old >= 0 else { throw CatalogError.invalid }
                     let photos = item["images"] as? [[String: Any]] ?? []
-                    let photo = photos.first?["thumbnail"] as? String ?? photos.first?["src"] as? String
+                    let photo = photos.first?["src"] as? String ?? photos.first?["thumbnail"] as? String
                     let image: URL? = try photo.map { try Self.officialURL($0) }
                     let cats = item["categories"] as? [[String: Any]] ?? []
                     result.append(Product(id: id, name: name.replacingOccurrences(of: "&amp;", with: "&").replacingOccurrences(of: "&#8211;", with: "–").replacingOccurrences(of: "&quot;", with: "\""), url: try Self.officialURL(permalink), image: image, price: amount / pow(10, Double(minor)), old: old / pow(10, Double(minor)), sale: item["on_sale"] as? Bool ?? false, stock: item["is_in_stock"] as? Bool ?? false, range: prices["price_range"] is [String: Any], category: cats.compactMap { $0["name"] as? String }.joined(separator: " · ")))

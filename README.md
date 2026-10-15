@@ -4,7 +4,10 @@ Native Android boutique app, Hebrew RTL, Java. Android 8.0+.
 
 [Download the latest APK](https://github.com/hendayan1990-svg/rinat-abu-app/releases/latest/download/RINAT-ABU.apk) · [Releases](https://github.com/hendayan1990-svg/rinat-abu-app/releases/latest)
 
-## Version 0.3.0 preview
+## Version 0.4.0 preview
+- Photo-led home and collections, bundled Heebo typography, 507 offline product images.
+- Visible staggered cards, screen transitions, press feedback and gift amount selection.
+- Gift amounts are requests sent by the customer to Rinat; no payment or issuance occurs in this screen.
 - Native bottom navigation, vector icons and gift illustration, burgundy/ivory visual identity.
 - Animated screen entrance, favourite feedback and image fade-in. Respects disabled Android animations.
 - Public product catalogue refresh at launch, manually, and every five foreground minutes; atomic offline cache.
