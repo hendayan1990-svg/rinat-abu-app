@@ -1,5 +1,5 @@
 'use strict';
 const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const cardMoney=n=>new Intl.NumberFormat('he-IL',{style:'currency',currency:'ILS',maximumFractionDigits:2}).format(n);
-const cardDate=d=>new Date(d).toLocaleDateString('he-IL',{timeZone:'Asia/Jerusalem'});
+const cardMoney=n=>new Intl.NumberFormat(window.RinatI18n?.locale||'he-IL',{style:'currency',currency:'ILS',maximumFractionDigits:2}).format(n);
+const cardDate=d=>new Date(d).toLocaleDateString(window.RinatI18n?.locale||'he-IL',{timeZone:'Asia/Jerusalem'});
 function giftMarkup({amount,code,ends,qr,sample=false}){return `<article class="giftcard"><div class="gift-top"><div class="gift-brand"><img src="../logo.png" alt="רינת אבו"><span>A GIFT WITH LOVE</span></div><div class="gift-title" lang="en">The Gift of Choice</div><div class="gift-tag">מתנה אחת. עולם של בחירות יפות.</div><div class="gift-value">${escapeHtml(cardMoney(amount))}</div></div><div class="gift-bottom"><div><small>הגיפטכארד שלך</small><code class="gift-number">${escapeHtml(code.match(/.{1,4}/g)?.join(' ')||code)}</code><div class="gift-expiry">בתוקף עד ${escapeHtml(cardDate(ends))}</div>${sample?'<div class="gift-note">כרטיס לדוגמה בלבד · אינו תקף למימוש</div>':''}</div>${qr?`<img class="qr" src="${escapeHtml(qr)}" alt="${sample?'QR להמחשה בלבד':'QR עם מספר הכרטיס'}">`:''}</div><div class="gift-footer">למימוש מול רינת אבו, בכפוף ליתרה ולתנאי הכרטיס. קוד ה־QR מזהה את הכרטיס ואינו מבצע חיוב.</div></article>`}
