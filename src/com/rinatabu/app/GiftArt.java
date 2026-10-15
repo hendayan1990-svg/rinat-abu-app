@@ -1,0 +1,7 @@
+package com.rinatabu.app;
+import android.content.Context;import android.graphics.*;import android.view.View;
+/** Resolution-independent decorative artwork; no product representation. */
+public class GiftArt extends View {
+ Paint p=new Paint(3);public GiftArt(Context c){super(c);setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);}
+ protected void onDraw(Canvas c){super.onDraw(c);float u=getHeight()/252f;c.save();c.scale(u,u);p.setColor(0x12ffffff);c.drawCircle(28,195,110,p);p.setStyle(Paint.Style.STROKE);p.setStrokeWidth(.8f);p.setColor(0x35e3c398);c.drawCircle(24,180,125,p);c.drawCircle(24,180,135,p);c.save();c.translate(48,145);c.rotate(-12);p.setStyle(Paint.Style.FILL);p.setColor(0x25000000);c.drawOval(-48,43,55,63,p);p.setShader(new LinearGradient(-40,-40,45,50,new int[]{0xfff6e6ce,0xffc3a57e},null,Shader.TileMode.CLAMP));c.drawRoundRect(-41,-29,44,48,5,5,p);p.setShader(null);p.setColor(0xfffaecd8);c.drawRoundRect(-46,-36,49,-19,4,4,p);p.setColor(0xff9c5a6d);c.drawRect(-6,-36,8,48,p);p.setStyle(Paint.Style.STROKE);p.setStrokeWidth(6);Path ribbon=new Path();ribbon.moveTo(1,-35);ribbon.cubicTo(-60,-45,-15,-95,1,-35);ribbon.cubicTo(60,-45,18,-95,1,-35);c.drawPath(ribbon,p);c.restore();p.setStyle(Paint.Style.STROKE);p.setColor(0xffcba877);p.setStrokeWidth(1);for(float[] a:new float[][]{{25,45},{108,85},{90,220}}){c.drawLine(a[0]-4,a[1],a[0]+4,a[1],p);c.drawLine(a[0],a[1]-4,a[0],a[1]+4,p);}c.restore();}
+}
