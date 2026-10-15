@@ -15,6 +15,8 @@ public final class Languages{
  if(s.startsWith("מסנכרן מוצרים מהאתר · "))return tr("מתעדכן מהאתר…")+" "+s.substring(s.lastIndexOf('·')+1);
  if(s.startsWith("עדכון ")&&s.contains(" זמין להורדה"))return pick("","Update ","تحديث ","Обновление ")+s.split(" ")[1]+pick(""," is available on GitHub. Installation requires your confirmation."," متاح على GitHub. التثبيت يتطلب موافقتكم."," доступно на GitHub. Установка требует вашего подтверждения.");
 
+ if(s.startsWith("מס על השורה: ")&&s.contains(" · כולל מס: ")){String[] parts=s.substring("מס על השורה: ".length()).split(" · כולל מס: ",2);return tr("מס על השורה")+": "+parts[0]+" · "+tr("כולל מס")+": "+parts[1];}
+ for(String prefix:new String[]{"מחיר יחידה באתר","סך שורה לפני מס","מחיר מוצרים לפני הנחות ומסים","הנחות וקופונים","עמלות ותוספות","משלוח לפי הפרטים הידועים כרגע","מסים","סכום ביניים באתר"})if(s.startsWith(prefix+": "))return tr(prefix)+": "+s.substring(prefix.length()+2);
  return source;}
  static String[] tr(String[] values){String[] out=values.clone();for(int i=0;i<out.length;i++)out[i]=tr(out[i]);return out;}
 }
