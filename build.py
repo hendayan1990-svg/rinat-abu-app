@@ -25,7 +25,7 @@ try:
  # Dedicated Android test key, never used for the production release.
  key=root/'rinat-preview.keystore'
  if not key.exists():run(java/'keytool.exe','-genkeypair','-keystore',key,'-storepass','android','-keypass','android','-alias','androiddebugkey','-keyalg','RSA','-keysize','2048','-validity','3650','-dname','CN=Rinat Abu Preview,O=Development,C=IL')
- out=root/'output'/'RINAT-ABU-0.5.0-preview.apk'
+ out=root/'output'/'RINAT-ABU-0.5.1-preview.apk'
  run(java/'java.exe','-jar',bt/'lib'/'apksigner.jar','sign','--ks',key,'--ks-pass','pass:android','--key-pass','pass:android','--out',out,'build/aligned.apk')
  run(java/'java.exe','-jar',bt/'lib'/'apksigner.jar','verify','--verbose',out)
  run(bt/'aapt2.exe','dump','badging',out)
